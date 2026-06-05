@@ -85,6 +85,8 @@ export const CampTestimonialsSection = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const [scrollTrackPx, setScrollTrackPx] = useState(800);
+  /** Viewport height — 0 on SSR, set after mount so server and client render the same initial height. */
+  const [viewportH, setViewportH] = useState(0);
 
   /** How many px of scroll distance to give to the horizontal slide. */
   const measureLayout = useCallback(() => {
@@ -94,6 +96,7 @@ export const CampTestimonialsSection = () => {
 
     const overflowPx = Math.max(0, track.scrollWidth - viewport.clientWidth);
     setScrollTrackPx(overflowPx);
+    setViewportH(window.innerHeight);
   }, []);
 
   const handleScroll = useCallback(() => {
@@ -155,8 +158,10 @@ export const CampTestimonialsSection = () => {
   /**
    * Section height = enough scroll distance to fully traverse the cards,
    * plus a full viewport height so the pinned block stays visible throughout.
+   * viewportH starts at 0 (SSR-safe) and is set after mount — both server
+   * and client agree on the initial value, preventing the hydration mismatch.
    */
-  const sectionHeightPx = scrollTrackPx + (typeof window !== "undefined" ? window.innerHeight : 900);
+  const sectionHeightPx = scrollTrackPx + viewportH;
 
   return (
     <section

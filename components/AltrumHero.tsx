@@ -17,8 +17,10 @@ type AltrumHeroProps = {
   backgroundAlt?: string;
 };
 
-/** Background loop video — pre-trimmed, no logo slate */
+/** Background loop — trimmed no-captions version, loops silently */
 const HERO_VIDEO_SRC = "/videos/jlp-ministry-video-no-captions.mp4";
+/** Full ministry video — original with captions, plays in the modal */
+const MODAL_VIDEO_SRC = "/videos/jlp-ministry-video.mp4";
 const HERO_POSTER_SRC = "/hero/jlp-hero.png";
 /** Background preview starts here on first load, then loops naturally from 0:00 */
 const HERO_VIDEO_START_OFFSET = 24;
@@ -272,7 +274,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             onClick={handleOpenModal}
             aria-label="Watch our ministry story"
             tabIndex={0}
-            className="pointer-events-auto absolute bottom-12 right-10 z-20 hidden cursor-pointer items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-2xl transition-all duration-300 hover:border-white/35 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:flex lg:bottom-14 lg:right-14"
+            className="pointer-events-auto absolute right-10 top-1/2 z-20 hidden -translate-y-1/2 cursor-pointer items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-2xl transition-all duration-300 hover:border-white/35 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:flex lg:right-14"
             style={{
               background: "rgba(255,255,255,0.08)",
               backdropFilter: "blur(20px) saturate(1.5)",
@@ -347,7 +349,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
               <video
                 ref={modalVideoRef}
                 className="h-full w-full object-contain"
-                src={HERO_VIDEO_SRC}
+                src={MODAL_VIDEO_SRC}
                 controls
                 autoPlay
                 playsInline
