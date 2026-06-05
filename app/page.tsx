@@ -1,7 +1,6 @@
 import { AltrumHero } from "../components/AltrumHero";
 import { FeaturedWorksSection } from "../components/FeaturedWorksSection";
 import { Footer } from "../components/Footer";
-import { ResponseVideoSection } from "../components/ResponseVideoSection";
 import { ForYouSection } from "../components/ForYouSection";
 import { MinistryVideoSection } from "../components/MinistryVideoSection";
 import { ProgramsSection } from "../components/ProgramsSection";
@@ -23,7 +22,6 @@ export default function Home() {
         <ProgramsSection />
         <ScriptureMomentSection />
         <FeaturedWorksSection />
-        <ResponseVideoSection />
         <MinistryVideoSection />
         <Footer />
       </div>

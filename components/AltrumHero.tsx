@@ -17,8 +17,8 @@ type AltrumHeroProps = {
   backgroundAlt?: string;
 };
 
-/** Background loop video — the ministry video starting at 0:24 */
-const HERO_VIDEO_SRC = "/videos/jlp-ministry-video.mp4";
+/** Background loop video — no-captions version, starting at 0:24 */
+const HERO_VIDEO_SRC = "/videos/jlp-ministry-video-no-captions.mp4";
 const HERO_POSTER_SRC = "/hero/jlp-hero.png";
 /** Start offset in seconds for the background loop */
 const HERO_VIDEO_START_OFFSET = 24;
@@ -213,10 +213,6 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
           >
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-black/20" />
-          <div className="pointer-events-none absolute inset-0 w-[58%] bg-gradient-to-r from-black/50 to-transparent" />
-          <div className="pointer-events-none absolute inset-0 opacity-[0.18] mix-blend-overlay [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.6)_0px,rgba(255,255,255,0.6)_1px,transparent_1px,transparent_3px)]" />
-
           {/* Hero content */}
           <div className="relative z-10 flex h-full w-full flex-col justify-end px-6 pb-14 pt-28 sm:px-10 lg:px-14">
 
