@@ -58,11 +58,11 @@ export const CampDetailsSection = () => {
           The details
         </p>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:grid-rows-2">
 
-          {/* WHEN — tall, spans 2 rows on desktop */}
+          {/* WHEN */}
           <div
-            className={`${CARD_BASE} col-span-2 row-span-1 flex flex-col justify-between bg-neutral-900 p-5 sm:p-6 lg:col-span-1 lg:row-span-2 lg:p-8`}
+            className={`${CARD_BASE} flex flex-col justify-between bg-neutral-900 p-5 sm:p-6 lg:row-span-2 lg:p-8`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -71,11 +71,11 @@ export const CampDetailsSection = () => {
           >
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-600">When</p>
-              <p className="mt-4 text-[clamp(1.4rem,3vw,1.75rem)] font-bold leading-[1.1] text-white">
-                28 Jul –<br />1 Aug<br />2026
+              <p className="mt-3 text-[1.6rem] font-bold leading-[1.1] text-white">
+                28 Jul – 1 Aug 2026
               </p>
             </div>
-            <div className="mt-8 border-t border-neutral-800 pt-5">
+            <div className="mt-6 border-t border-neutral-800 pt-4">
               <p className="text-[13px] text-neutral-400">Tuesday to Saturday</p>
               <p className="mt-2 tabular-nums text-[2rem] font-bold text-white">
                 {days}
@@ -84,16 +84,15 @@ export const CampDetailsSection = () => {
             </div>
           </div>
 
-          {/* THEME — wide white card */}
+          {/* THEME */}
           <div
-            className={`${CARD_BASE} relative col-span-2 bg-white p-5 sm:p-6 lg:col-span-2 lg:p-8`}
+            className={`${CARD_BASE} relative bg-white p-5 sm:p-6 lg:col-span-2 lg:p-8`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
               transition: "opacity 0.55s cubic-bezier(0.22,1,0.36,1) 0.14s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.14s",
             }}
           >
-            {/* shimmer line */}
             <span
               className="pointer-events-none absolute inset-0 rounded-2xl"
               aria-hidden="true"
@@ -105,15 +104,15 @@ export const CampDetailsSection = () => {
               }}
             />
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-400">Theme</p>
-            <p className="mt-3 text-[clamp(1.3rem,3.5vw,1.9rem)] font-bold leading-[1.1] tracking-[-0.02em] text-neutral-950">
-              Transformed<br />By His Glory
+            <p className="mt-3 text-[clamp(1.5rem,4vw,1.9rem)] font-bold leading-[1.1] tracking-[-0.02em] text-neutral-950">
+              Transformed By His Glory
             </p>
             <p className="mt-3 text-[13px] text-neutral-400">Camp 2026</p>
           </div>
 
           {/* WHO */}
           <div
-            className={`${CARD_BASE} col-span-2 bg-neutral-800 p-5 sm:col-span-1 sm:p-6`}
+            className={`${CARD_BASE} bg-neutral-800 p-5 sm:p-6`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -121,25 +120,25 @@ export const CampDetailsSection = () => {
             }}
           >
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">Who</p>
-            <p className="mt-3 text-[1.4rem] font-bold leading-snug text-white">
-              Ages<br />
+            <p className="mt-3 text-[1.6rem] font-bold leading-snug text-white">
+              Ages{" "}
               <span className="tabular-nums">{ageMin}</span>
-              <span className="text-neutral-500"> – </span>
+              <span className="text-neutral-500">–</span>
               <span className="tabular-nums">{ageMax}</span>
             </p>
-            <p className="mt-3 text-[12px] text-neutral-400">Free to attend</p>
+            <p className="mt-2 text-[13px] text-neutral-400">Free to attend</p>
           </div>
 
-          {/* WHERE — photo card */}
+          {/* WHERE */}
           <div
-            className={`${CARD_BASE} col-span-2 bg-neutral-900 lg:col-span-2`}
+            className={`${CARD_BASE} bg-neutral-900 lg:col-span-2`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
               transition: "opacity 0.55s cubic-bezier(0.22,1,0.36,1) 0.30s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.30s",
             }}
           >
-            <div className="group relative h-24 w-full overflow-hidden sm:h-28 lg:h-36">
+            <div className="group relative h-28 w-full overflow-hidden lg:h-36">
               <Image
                 src="/images/programs-annual-camp-gathering.png"
                 alt="Camp gathering"
@@ -151,14 +150,14 @@ export const CampDetailsSection = () => {
             </div>
             <div className="p-5 sm:p-6">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">Where</p>
-              <p className="mt-2 text-[1.15rem] font-bold leading-snug text-white sm:text-[1.2rem]">Emarid College</p>
-              <p className="mt-1 text-[12px] text-neutral-400 sm:text-[13px]">Eneka/Igwuruta Road, Port Harcourt</p>
+              <p className="mt-2 text-[1.2rem] font-bold leading-snug text-white">Emarid College</p>
+              <p className="mt-1 text-[13px] text-neutral-400">Eneka/Igwuruta Road, Port Harcourt</p>
             </div>
           </div>
 
           {/* REGISTER */}
           <div
-            className={`${CARD_BASE} col-span-2 flex flex-col items-start justify-between bg-red-600 p-5 sm:col-span-1 sm:p-6`}
+            className={`${CARD_BASE} flex flex-col items-start justify-between bg-red-600 p-5 sm:p-6`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -167,8 +166,8 @@ export const CampDetailsSection = () => {
           >
             <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-red-200">Registration</p>
             <div>
-              <p className="mt-3 text-[1.3rem] font-bold leading-snug text-white">
-                Free.<br />Register now.
+              <p className="mt-3 text-[1.4rem] font-bold leading-snug text-white">
+                Free. Register now.
               </p>
               <a
                 href={REGISTER_URL}

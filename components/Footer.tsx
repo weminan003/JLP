@@ -98,7 +98,7 @@ const SOCIAL_LINKS: SocialLink[] = [
   },
   {
     label: "Facebook",
-    href: "https://www.facebook.com/jlpglobalnetwork",
+    href: "https://www.facebook.com/jlpglobalnetwork/",
     icon: <FacebookIcon />,
   },
 ];

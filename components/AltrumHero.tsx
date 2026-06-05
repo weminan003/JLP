@@ -78,7 +78,13 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       return;
     }
 
-    /** Seek to the 0:24 offset before the first play so the loop starts there */
+    const jumpToStart = () => {
+      video.currentTime = 0;
+      const p = video.play();
+      if (p !== undefined) p.catch(() => {});
+    };
+
+    /** Seek to 0:24 before the first play */
     const handleCanPlay = () => {
       if (video.currentTime < HERO_VIDEO_START_OFFSET) {
         video.currentTime = HERO_VIDEO_START_OFFSET;
@@ -92,23 +98,28 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
     };
 
     /**
-     * When the video reaches 1:02 (HERO_VIDEO_LOOP_END), jump back to 0:00
-     * so the logo slate at the end is never shown.
-     * After the first play the full content from 0:00 plays through.
+     * rAF loop — checks currentTime every frame (~60fps) so we never
+     * miss the 1:02 cutoff regardless of how infrequently timeupdate fires.
      */
-    const handleTimeUpdate = () => {
-      if (!video.duration) return;
+    let rafId: number;
+    const tick = () => {
       if (video.currentTime >= HERO_VIDEO_LOOP_END) {
-        video.currentTime = 0;
+        jumpToStart();
       }
+      rafId = requestAnimationFrame(tick);
     };
 
+    /** Also handle the natural end as a safety net */
+    const handleEnded = () => jumpToStart();
+
     video.addEventListener("canplay", handleCanPlay, { once: true });
-    video.addEventListener("timeupdate", handleTimeUpdate);
+    video.addEventListener("ended", handleEnded);
+    rafId = requestAnimationFrame(tick);
 
     return () => {
       video.removeEventListener("canplay", handleCanPlay);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
+      video.removeEventListener("ended", handleEnded);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -207,7 +218,6 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             className="absolute inset-0 h-full w-full object-cover object-[62%_38%]"
             autoPlay
             muted
-            loop
             playsInline
             preload="auto"
             poster={HERO_POSTER_SRC}
