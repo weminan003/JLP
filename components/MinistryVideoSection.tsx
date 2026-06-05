@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /** The original hero footage in this pre-footer showcase section */
-const MINISTRY_VIDEO_SRC = "/hero/jlp-hero-main.mp4";
+const MINISTRY_VIDEO_SRC = "https://tmczhiaehonyxwhungsj.supabase.co/storage/v1/object/public/videos/hero/jlp-hero-main.mp4";
 const MINISTRY_POSTER_SRC = "/hero/jlp-hero.png";
 
 /** ─── Component ─────────────────────────────────────────────────────────── */

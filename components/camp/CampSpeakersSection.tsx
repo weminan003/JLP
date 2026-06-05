@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import React from "react";
 import { CAMP_SECTION_PX, CAMP_SECTION_PY } from "@/components/camp/campSectionSpacing";
 import { useCampReveal } from "@/components/camp/useCampReveal";
 
@@ -67,7 +67,6 @@ const SPEAKERS: CampSpeaker[] = [
 
 export const CampSpeakersSection = () => {
   const { ref: sectionRevealRef, inView: sectionInView } = useCampReveal(0.08);
-  const sectionRef = useRef<HTMLElement>(null);
 
   const SpeakerCard = ({ speaker, index, sizes }: { speaker: CampSpeaker; index: number; sizes: string }) => (
     <article
@@ -99,7 +98,6 @@ export const CampSpeakersSection = () => {
 
   const CopyBlock = ({ className }: { className?: string }) => (
     <div
-      ref={sectionRevealRef}
       className={`flex flex-col camp-reveal ${sectionInView ? "is-visible" : ""} ${className ?? ""}`}
     >
       <p className="text-[12px] font-bold uppercase tracking-[0.24em] text-neutral-400">
@@ -126,7 +124,7 @@ export const CampSpeakersSection = () => {
 
   return (
     <section
-      ref={sectionRef}
+      ref={sectionRevealRef as React.RefObject<HTMLElement>}
       id="speakers"
       aria-label="Camp speakers"
       className={`bg-white ${CAMP_SECTION_PX} ${CAMP_SECTION_PY}`}

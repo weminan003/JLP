@@ -22,6 +22,8 @@ type SlotTransform = {
 };
 
 /** ─── Data ──────────────────────────────────────────────────────────────── */
+const SUPABASE = "https://tmczhiaehonyxwhungsj.supabase.co/storage/v1/object/public/videos";
+
 const CARDS: FeaturedCard[] = [
   {
     id: "encounter-camp",
@@ -29,7 +31,7 @@ const CARDS: FeaturedCard[] = [
     label: "The Spirit of Prayer",
     category: "Prayer & Revival",
     posterSrc: "/testimonies/01-prayer-revival-poster.jpg",
-    videoSrc: "/testimonies/01-prayer-revival.mp4",
+    videoSrc: `${SUPABASE}/testimonies/01-prayer-revival.mp4`,
   },
   {
     id: "from-darkness",
@@ -37,7 +39,7 @@ const CARDS: FeaturedCard[] = [
     label: "Felt His Presence",
     category: "Personal Transformation",
     posterSrc: "/testimonies/02-testimony1-poster.jpg",
-    videoSrc: "/testimonies/02-testimony1.mp4",
+    videoSrc: `${SUPABASE}/testimonies/02-testimony1.mp4`,
     orientation: "portrait",
   },
 ];

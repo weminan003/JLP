@@ -1,9 +1,13 @@
 /**
  * Uploads all local video files to Supabase Storage.
  * Run with: node scripts/upload-videos.mjs
+ *
+ * Requires a .env.local file (or environment variables) with:
+ *   SUPABASE_URL=...
+ *   SUPABASE_SERVICE_KEY=...
  */
 import { createClient } from "@supabase/supabase-js";
-import { createReadStream, statSync } from "fs";
+import { createReadStream, statSync, readFileSync } from "fs";
 import { resolve, basename } from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -12,9 +16,37 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = resolve(__dirname, "..");
 
-const SUPABASE_URL = "https://tmczhiaehonyxwhungsj.supabase.co";
-const SERVICE_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRtY3poaWFlaG9ueXh3aHVuZ3NqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MDYzMDUzNCwiZXhwIjoyMDk2MjA2NTM0fQ.ZVOlsHh6MPW5tYXY5iqxa_ZiRDMohYzgdcWxevhTGrA";
+/** Load .env.local into process.env if not already set by the shell */
+const loadEnvLocal = () => {
+  const envPath = resolve(ROOT, ".env.local");
+  try {
+    const lines = readFileSync(envPath, "utf-8").split("\n");
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eqIdx = trimmed.indexOf("=");
+      if (eqIdx === -1) continue;
+      const key = trimmed.slice(0, eqIdx).trim();
+      const value = trimmed.slice(eqIdx + 1).trim();
+      if (!(key in process.env)) process.env[key] = value;
+    }
+  } catch {
+    /* .env.local is optional when vars are already in the environment */
+  }
+};
+
+loadEnvLocal();
+
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_KEY;
+
+if (!SUPABASE_URL || !SERVICE_KEY) {
+  console.error(
+    "Missing SUPABASE_URL or SUPABASE_SERVICE_KEY.\n" +
+      "Add them to .env.local or set them as environment variables."
+  );
+  process.exit(1);
+}
 
 const BUCKET = "videos";
 
