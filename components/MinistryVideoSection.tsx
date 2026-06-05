@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /** The original hero footage in this pre-footer showcase section */
-const MINISTRY_VIDEO_SRC = "/videos/jlp-ministry-video-no-captions.mp4";
+const MINISTRY_VIDEO_SRC = "/hero/jlp-hero-main.mp4";
 const MINISTRY_POSTER_SRC = "/hero/jlp-hero.png";
 
 /** ─── Component ─────────────────────────────────────────────────────────── */
@@ -51,20 +51,19 @@ export const MinistryVideoSection = () => {
       id="ministry-video"
       className="relative w-full overflow-hidden bg-black"
       aria-label="Ministry footage"
+      style={{ height: "55vh" }}
     >
-      <div className="relative aspect-video w-full">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 h-full w-full object-cover object-[62%_38%]"
-          src={MINISTRY_VIDEO_SRC}
-          poster={MINISTRY_POSTER_SRC}
-          muted
-          loop
-          playsInline
-          preload="none"
-          aria-label="JLP ministry footage"
-        />
-      </div>
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover object-[62%_38%]"
+        src={MINISTRY_VIDEO_SRC}
+        poster={MINISTRY_POSTER_SRC}
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-label="JLP ministry footage"
+      />
     </section>
   );
 };
