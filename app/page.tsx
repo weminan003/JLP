@@ -1,4 +1,17 @@
+import type { Metadata } from "next";
 import { AltrumHero } from "../components/AltrumHero";
+
+export const metadata: Metadata = {
+  title: "Jesus Love and Power Ministries",
+  description:
+    "Jesus Love and Power Ministries — a generation of teenagers on fire for Jesus. Join us for Supernatural Teens Recharge, monthly worship, prayer and encounter across Nigeria.",
+  openGraph: {
+    title: "Jesus Love and Power Ministries",
+    description:
+      "A generation on fire for Jesus. Monthly worship, prayer and encounter for teenagers across Nigeria.",
+    url: "https://jlpministries.com",
+  },
+};
 import { FeaturedWorksSection } from "../components/FeaturedWorksSection";
 import { Footer } from "../components/Footer";
 import { ForYouSection } from "../components/ForYouSection";
