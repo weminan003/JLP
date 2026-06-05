@@ -36,6 +36,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# large video files (host on CDN/Supabase Storage instead)
+public/testimonies/*.mp4
+public/videos/jlp-ministry-video.mp4
+public/hero/jlp-hero-main.mp4
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
