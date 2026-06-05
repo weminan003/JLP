@@ -1,0 +1,374 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-outfit);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes altrumScroll {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 1;
+  }
+}
+
+.animate-altrumScroll {
+  animation: altrumScroll 1.4s ease-in-out infinite;
+}
+
+@keyframes altrumArrow {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(3px, 3px);
+    opacity: 1;
+  }
+}
+
+.animate-altrumArrow {
+  animation: altrumArrow 1.5s ease-in-out infinite;
+}
+
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marqueeLeft linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marqueeRight linear infinite;
+}
+
+@keyframes programsReveal {
+  from {
+    transform: translateY(110%);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes programsFadeUp {
+  from {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes programsFadeUpDeep {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes programsTextUp {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes programsBadgeIn {
+  from {
+    transform: translateX(14px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.programs-headline-line {
+  overflow: hidden;
+  display: block;
+}
+
+.programs-animate-headline-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  opacity: 0;
+}
+
+.programs-animate-fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.programs-animate-badge {
+  opacity: 0;
+}
+
+.programs-animate-title,
+.programs-animate-desc,
+.programs-animate-pill {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+.programs-in-view .programs-animate-headline-inner {
+  animation: programsReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.programs-in-view .programs-animate-headline-inner--delay {
+  animation-delay: 0.1s;
+}
+
+.programs-in-view .programs-animate-badge {
+  animation: programsBadgeIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
+}
+
+.programs-in-view .programs-animate-fade-up--1 {
+  animation: programsFadeUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.24s forwards;
+}
+
+.programs-in-view .programs-animate-fade-up--2 {
+  animation: programsFadeUpDeep 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+}
+
+.programs-in-view .programs-animate-title--1 {
+  animation: programsTextUp 0.68s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+}
+
+.programs-in-view .programs-animate-title--2 {
+  animation: programsTextUp 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.62s forwards;
+}
+
+.programs-in-view .programs-animate-desc--1 {
+  animation: programsTextUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.62s forwards;
+}
+
+.programs-in-view .programs-animate-desc--2 {
+  animation: programsTextUp 0.68s cubic-bezier(0.22, 1, 0.36, 1) 0.76s forwards;
+}
+
+.programs-in-view .programs-animate-pill--1a {
+  animation: programsTextUp 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.74s forwards;
+}
+
+.programs-in-view .programs-animate-pill--1b {
+  animation: programsTextUp 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.84s forwards;
+}
+
+.programs-in-view .programs-animate-pill--2a {
+  animation: programsTextUp 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.88s forwards;
+}
+
+.programs-in-view .programs-animate-pill--2b {
+  animation: programsTextUp 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.98s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .programs-animate-headline-inner,
+  .programs-animate-fade-up,
+  .programs-animate-badge,
+  .programs-animate-title,
+  .programs-animate-desc,
+  .programs-animate-pill {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* Testimony modal — Plyr fills the player area */
+.testimony-plyr .plyr,
+.testimony-plyr .plyr__video-wrapper {
+  height: 100%;
+  width: 100%;
+}
+
+.testimony-plyr .plyr--video {
+  border-radius: 0;
+  overflow: hidden;
+}
+
+/* Modal player — no static poster flash; show video frames only */
+.testimony-plyr .plyr__poster {
+  display: none !important;
+}
+
+.testimony-plyr .plyr__video-wrapper {
+  background: #000;
+}
+
+@keyframes campFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes campFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes campScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.camp-hero-enter {
+  animation: campFadeUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.camp-hero-enter--1 {
+  animation-delay: 0.08s;
+  opacity: 0;
+}
+
+.camp-hero-enter--2 {
+  animation-delay: 0.18s;
+  opacity: 0;
+}
+
+.camp-hero-enter--3 {
+  animation-delay: 0.28s;
+  opacity: 0;
+}
+
+.camp-hero-enter--4 {
+  animation-delay: 0.38s;
+  opacity: 0;
+}
+
+.camp-hero-enter--5 {
+  animation-delay: 0.46s;
+  opacity: 0;
+}
+
+.camp-hero-enter--6 {
+  animation-delay: 0.54s;
+  opacity: 0;
+}
+
+.camp-hero-enter--7 {
+  animation-delay: 0.62s;
+  opacity: 0;
+}
+
+.camp-hero-enter--4 {
+  animation-delay: 0.38s;
+  opacity: 0;
+}
+
+.camp-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.camp-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.camp-reveal-scale {
+  opacity: 0;
+  transform: scale(0.97);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.camp-reveal-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.camp-card-hover {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.camp-card-hover:hover {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .camp-hero-enter,
+  .camp-hero-enter--1,
+  .camp-hero-enter--2,
+  .camp-hero-enter--3,
+  .camp-hero-enter--4,
+  .camp-hero-enter--5,
+  .camp-hero-enter--6,
+  .camp-hero-enter--7,
+  .camp-reveal,
+  .camp-reveal-scale {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .camp-card-hover:hover {
+    transform: none;
+  }
+}
