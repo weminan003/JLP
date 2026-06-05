@@ -83,7 +83,14 @@ export const CampSpeakersSection = () => {
     const viewport = viewportRef.current;
     if (!track || !viewport) return;
 
-    const maxTranslate = Math.max(0, track.scrollHeight - viewport.clientHeight);
+    /**
+     * viewport.clientHeight reflects its CSS height (78vh on desktop).
+     * track.scrollHeight reflects the true rendered height of all speaker cards.
+     * We scroll the track by the difference.
+     */
+    const viewportH = viewport.clientHeight;
+    const trackH = track.scrollHeight;
+    const maxTranslate = Math.max(0, trackH - viewportH);
     const trackPx = maxTranslate + SCROLL_HOLD_PX;
     setScrollTrackPx(trackPx);
     setContainerHeightPx(trackPx + window.innerHeight);
@@ -109,6 +116,21 @@ export const CampSpeakersSection = () => {
     measureLayout();
     handleScroll();
 
+    /**
+     * Images inside the track render async — their intrinsic heights are not
+     * available on the first paint, so the initial measureLayout() can see a
+     * track.scrollHeight that is too small.  Re-measure once on the next frame
+     * and again after a short delay to catch lazy-loaded images.
+     */
+    const rafId = requestAnimationFrame(() => {
+      measureLayout();
+      handleScroll();
+    });
+    const timerId = setTimeout(() => {
+      measureLayout();
+      handleScroll();
+    }, 400);
+
     const track = trackRef.current;
     if (!track) return;
 
@@ -123,6 +145,8 @@ export const CampSpeakersSection = () => {
     window.addEventListener("resize", handleScroll, { passive: true });
 
     return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
       resizeObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
@@ -196,7 +220,7 @@ export const CampSpeakersSection = () => {
         className="relative hidden md:block"
       >
         <div
-          className="sticky flex flex-row items-stretch gap-14 overflow-hidden md:h-[78vh]"
+          className="sticky flex flex-row items-stretch gap-14 md:h-[78vh]"
           style={{ top: STICKY_TOP }}
         >
           <div

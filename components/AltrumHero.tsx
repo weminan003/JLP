@@ -17,13 +17,11 @@ type AltrumHeroProps = {
   backgroundAlt?: string;
 };
 
-/** Background loop video — no-captions version */
+/** Background loop video — pre-trimmed, no logo slate */
 const HERO_VIDEO_SRC = "/videos/jlp-ministry-video-no-captions.mp4";
 const HERO_POSTER_SRC = "/hero/jlp-hero.png";
-/** Background preview starts here on very first load */
+/** Background preview starts here on first load, then loops naturally from 0:00 */
 const HERO_VIDEO_START_OFFSET = 24;
-/** When background hits this point jump back to 0:00 — skips the logo slate */
-const HERO_VIDEO_LOOP_END = 62;
 
 export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProps) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -78,13 +76,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       return;
     }
 
-    const jumpToStart = () => {
-      video.currentTime = 0;
-      const p = video.play();
-      if (p !== undefined) p.catch(() => {});
-    };
-
-    /** Seek to 0:24 before the first play */
+    /** Seek to 0:24 on first play then let the browser loop natively */
     const handleCanPlay = () => {
       if (video.currentTime < HERO_VIDEO_START_OFFSET) {
         video.currentTime = HERO_VIDEO_START_OFFSET;
@@ -97,29 +89,10 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       }
     };
 
-    /**
-     * rAF loop — checks currentTime every frame (~60fps) so we never
-     * miss the 1:02 cutoff regardless of how infrequently timeupdate fires.
-     */
-    let rafId: number;
-    const tick = () => {
-      if (video.currentTime >= HERO_VIDEO_LOOP_END) {
-        jumpToStart();
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    /** Also handle the natural end as a safety net */
-    const handleEnded = () => jumpToStart();
-
     video.addEventListener("canplay", handleCanPlay, { once: true });
-    video.addEventListener("ended", handleEnded);
-    rafId = requestAnimationFrame(tick);
 
     return () => {
       video.removeEventListener("canplay", handleCanPlay);
-      video.removeEventListener("ended", handleEnded);
-      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -218,6 +191,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             className="absolute inset-0 h-full w-full object-cover object-[62%_38%]"
             autoPlay
             muted
+            loop
             playsInline
             preload="auto"
             poster={HERO_POSTER_SRC}
@@ -259,21 +233,19 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
               </p>
             </div>
 
-            {/* "Watch Our Story" — centred in the hero viewport */}
-            {/* Mobile: icon-only circle. Desktop (sm+): full pill with text. */}
+            {/* Mobile only: icon-only glass circle — centred in hero */}
             <button
               type="button"
               onClick={handleOpenModal}
               aria-label="Watch our ministry story"
               tabIndex={0}
-              className="pointer-events-auto absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+              className="pointer-events-auto absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:hidden"
               style={{
                 opacity: bottomOpacity > 0.05 ? 1 : 0,
                 transition: "opacity 0.4s ease",
               }}
             >
-              {/* ── Mobile: icon-only glass circle ── */}
-              <span className="relative flex h-16 w-16 items-center justify-center sm:hidden">
+              <span className="relative flex h-16 w-16 items-center justify-center">
                 <span
                   className="absolute inset-0 animate-ping rounded-full bg-white/15"
                   aria-hidden="true"
@@ -291,38 +263,44 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
                   </svg>
                 </span>
               </span>
-
-              {/* ── Desktop: full pill with play icon + text ── */}
-              <span
-                className="hidden items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-2xl transition-all duration-300 hover:border-white/35 hover:bg-white/15 sm:flex"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-                  backdropFilter: "blur(20px) saturate(1.5)",
-                  WebkitBackdropFilter: "blur(20px) saturate(1.5)",
-                }}
-              >
-                <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
-                  <span
-                    className="absolute inset-0 animate-ping rounded-full bg-white/20"
-                    aria-hidden="true"
-                  />
-                  <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/15">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                      <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
-                    </svg>
-                  </span>
-                </span>
-                <span className="flex flex-col items-start leading-tight">
-                  <span className="text-[13px] font-semibold tracking-wide text-white">
-                    Watch Our Story
-                  </span>
-                  <span className="text-[10px] font-normal tracking-[0.12em] text-white/55 uppercase">
-                    Our heart &amp; vision
-                  </span>
-                </span>
-              </span>
             </button>
           </div>
+
+          {/* Desktop only: full pill — bottom-right of hero */}
+          <button
+            type="button"
+            onClick={handleOpenModal}
+            aria-label="Watch our ministry story"
+            tabIndex={0}
+            className="pointer-events-auto absolute bottom-12 right-10 z-20 hidden cursor-pointer items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-2xl transition-all duration-300 hover:border-white/35 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:flex lg:bottom-14 lg:right-14"
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              backdropFilter: "blur(20px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+              opacity: bottomOpacity > 0.05 ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}
+          >
+            <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
+              <span
+                className="absolute inset-0 animate-ping rounded-full bg-white/20"
+                aria-hidden="true"
+              />
+              <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/15">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                  <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
+                </svg>
+              </span>
+            </span>
+            <span className="flex flex-col items-start leading-tight">
+              <span className="text-[13px] font-semibold tracking-wide text-white">
+                Watch Video
+              </span>
+              <span className="text-[10px] font-normal tracking-[0.12em] text-white/55 uppercase">
+                Our heart &amp; vision
+              </span>
+            </span>
+          </button>
 
           <div
             id="hero-scroll-sentinel"
