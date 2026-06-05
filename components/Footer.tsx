@@ -142,8 +142,8 @@ export const Footer = () => {
       className="relative bg-black text-white"
       aria-label="Site footer"
     >
-      <div className="mx-auto max-w-screen-xl px-8 pb-14 pt-16 sm:px-12 lg:px-16">
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-24">
+      <div className="mx-auto max-w-screen-xl px-5 pb-12 pt-14 sm:px-12 sm:pb-14 sm:pt-16 lg:px-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-24">
           {/* Brand + mission */}
           <div className="flex flex-col gap-6">
             <a
@@ -163,7 +163,7 @@ export const Footer = () => {
               </span>
             </a>
 
-            <p className="max-w-md font-mono text-[13px] leading-[1.85] text-white/50">
+            <p className="max-w-md font-mono text-[12px] leading-[1.85] text-white/50 sm:text-[13px]">
               Jesus Love and Power Ministries exists to gather and equip a
               generation of teens who know His love, walk in His power, and carry
               revival into their schools, homes, and nations.
@@ -194,7 +194,7 @@ export const Footer = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-10 border-t border-white/10 pt-8 sm:max-w-md lg:ml-auto">
+            <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-8 sm:max-w-md sm:gap-10 lg:ml-auto">
               <div>
                 <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
                   Pages
@@ -236,7 +236,7 @@ export const Footer = () => {
 
       {/* Bottom bar */}
       <div className="border-t border-white/[0.08]">
-        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-8 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-12 lg:px-16">
+        <div className="mx-auto flex max-w-screen-xl flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-12 sm:py-6 lg:px-16">
           <p className="text-[11px] tracking-wide text-white/35">
             © {currentYear} Jesus Love and Power Ministries. All rights reserved.
           </p>

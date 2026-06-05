@@ -62,7 +62,7 @@ export const CampDetailsSection = () => {
 
           {/* WHEN — tall, spans 2 rows on desktop */}
           <div
-            className={`${CARD_BASE} col-span-2 row-span-1 flex flex-col justify-between bg-neutral-900 p-6 lg:col-span-1 lg:row-span-2 lg:p-8`}
+            className={`${CARD_BASE} col-span-2 row-span-1 flex flex-col justify-between bg-neutral-900 p-5 sm:p-6 lg:col-span-1 lg:row-span-2 lg:p-8`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -86,7 +86,7 @@ export const CampDetailsSection = () => {
 
           {/* THEME — wide white card */}
           <div
-            className={`${CARD_BASE} relative col-span-2 bg-white p-6 lg:col-span-2 lg:p-8`}
+            className={`${CARD_BASE} relative col-span-2 bg-white p-5 sm:p-6 lg:col-span-2 lg:p-8`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -113,7 +113,7 @@ export const CampDetailsSection = () => {
 
           {/* WHO */}
           <div
-            className={`${CARD_BASE} col-span-1 bg-neutral-800 p-6`}
+            className={`${CARD_BASE} col-span-2 bg-neutral-800 p-5 sm:col-span-1 sm:p-6`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",
@@ -139,7 +139,7 @@ export const CampDetailsSection = () => {
               transition: "opacity 0.55s cubic-bezier(0.22,1,0.36,1) 0.30s, transform 0.55s cubic-bezier(0.22,1,0.36,1) 0.30s",
             }}
           >
-            <div className="group relative h-28 w-full overflow-hidden lg:h-36">
+            <div className="group relative h-24 w-full overflow-hidden sm:h-28 lg:h-36">
               <Image
                 src="/images/programs-annual-camp-gathering.png"
                 alt="Camp gathering"
@@ -149,16 +149,16 @@ export const CampDetailsSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent to-neutral-900" />
             </div>
-            <div className="p-6">
+            <div className="p-5 sm:p-6">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-500">Where</p>
-              <p className="mt-2 text-[1.2rem] font-bold leading-snug text-white">Emarid College</p>
-              <p className="mt-1 text-[13px] text-neutral-400">Eneka/Igwuruta Road, Port Harcourt</p>
+              <p className="mt-2 text-[1.15rem] font-bold leading-snug text-white sm:text-[1.2rem]">Emarid College</p>
+              <p className="mt-1 text-[12px] text-neutral-400 sm:text-[13px]">Eneka/Igwuruta Road, Port Harcourt</p>
             </div>
           </div>
 
           {/* REGISTER */}
           <div
-            className={`${CARD_BASE} col-span-1 flex flex-col items-start justify-between bg-red-600 p-6`}
+            className={`${CARD_BASE} col-span-2 flex flex-col items-start justify-between bg-red-600 p-5 sm:col-span-1 sm:p-6`}
             style={{
               opacity: inView ? 1 : 0,
               transform: inView ? "none" : "translateY(28px)",

@@ -17,11 +17,13 @@ type AltrumHeroProps = {
   backgroundAlt?: string;
 };
 
-/** Background loop video — no-captions version, starting at 0:24 */
+/** Background loop video — no-captions version */
 const HERO_VIDEO_SRC = "/videos/jlp-ministry-video-no-captions.mp4";
 const HERO_POSTER_SRC = "/hero/jlp-hero.png";
-/** Start offset in seconds for the background loop */
+/** Background preview starts here on very first load */
 const HERO_VIDEO_START_OFFSET = 24;
+/** When background hits this point jump back to 0:00 — skips the logo slate */
+const HERO_VIDEO_LOOP_END = 62;
 
 export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProps) => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -90,13 +92,14 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
     };
 
     /**
-     * When the video loops back to 0:00, jump back to the 0:24 start point
-     * so the background always loops from that timestamp.
+     * When the video reaches 1:02 (HERO_VIDEO_LOOP_END), jump back to 0:00
+     * so the logo slate at the end is never shown.
+     * After the first play the full content from 0:00 plays through.
      */
     const handleTimeUpdate = () => {
       if (!video.duration) return;
-      if (video.currentTime < HERO_VIDEO_START_OFFSET - 0.3) {
-        video.currentTime = HERO_VIDEO_START_OFFSET;
+      if (video.currentTime >= HERO_VIDEO_LOOP_END) {
+        video.currentTime = 0;
       }
     };
 
@@ -118,9 +121,8 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
   const handleCloseModal = useCallback(() => {
     setModalOpen(false);
     modalVideoRef.current?.pause();
-    /* Resume background video */
+    /* Resume background video from wherever it left off */
     if (videoRef.current) {
-      videoRef.current.currentTime = HERO_VIDEO_START_OFFSET;
       const resumePromise = videoRef.current.play();
       if (resumePromise !== undefined) {
         resumePromise.catch(() => {});
@@ -214,7 +216,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
           {/* Hero content */}
-          <div className="relative z-10 flex h-full w-full flex-col justify-end px-6 pb-14 pt-28 sm:px-10 lg:px-14">
+          <div className="relative z-10 flex h-full w-full flex-col justify-end px-6 pb-10 pt-28 sm:px-10 sm:pb-16 lg:px-14">
 
             {/* JLP dominant — tagline small and minimal below */}
             <div className="flex max-w-[min(540px,82vw)] flex-col gap-4">
@@ -247,46 +249,66 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
               </p>
             </div>
 
-            {/* Glassmorphism "Watch Our Story" pill — bottom-right of hero */}
+            {/* "Watch Our Story" — centred in the hero viewport */}
+            {/* Mobile: icon-only circle. Desktop (sm+): full pill with text. */}
             <button
               type="button"
               onClick={handleOpenModal}
               aria-label="Watch our ministry story"
               tabIndex={0}
-              className="pointer-events-auto absolute bottom-12 right-6 z-20 flex items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-xl transition-all duration-300 hover:border-white/35 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:bottom-14 sm:right-10 lg:right-14"
+              className="pointer-events-auto absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
               style={{
-                background: "rgba(255,255,255,0.08)",
-                backdropFilter: "blur(18px) saturate(1.4)",
-                WebkitBackdropFilter: "blur(18px) saturate(1.4)",
-                opacity: bottomOpacity > 0.1 ? 1 : 0,
-                transform: `translateY(${(1 - Math.min(bottomOpacity * 4, 1)) * 12}px)`,
-                transition: "opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease",
+                opacity: bottomOpacity > 0.05 ? 1 : 0,
+                transition: "opacity 0.4s ease",
               }}
             >
-              {/* Animated pulse ring around play icon */}
-              <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
+              {/* ── Mobile: icon-only glass circle ── */}
+              <span className="relative flex h-16 w-16 items-center justify-center sm:hidden">
                 <span
-                  className="absolute inset-0 animate-ping rounded-full bg-white/20"
+                  className="absolute inset-0 animate-ping rounded-full bg-white/15"
                   aria-hidden="true"
                 />
-                <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/15">
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="white"
-                    aria-hidden="true"
-                  >
+                <span
+                  className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/25 text-white shadow-2xl transition-all duration-300 hover:border-white/40 hover:bg-white/20"
+                  style={{
+                    background: "rgba(255,255,255,0.10)",
+                    backdropFilter: "blur(20px) saturate(1.5)",
+                    WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+                  }}
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
                     <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
                   </svg>
                 </span>
               </span>
-              <span className="flex flex-col items-start leading-tight">
-                <span className="text-[13px] font-semibold tracking-wide text-white">
-                  Watch Our Story
+
+              {/* ── Desktop: full pill with play icon + text ── */}
+              <span
+                className="hidden items-center gap-3 rounded-full border border-white/20 px-5 py-3.5 text-white shadow-2xl transition-all duration-300 hover:border-white/35 hover:bg-white/15 sm:flex"
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(20px) saturate(1.5)",
+                  WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+                }}
+              >
+                <span className="relative flex h-9 w-9 shrink-0 items-center justify-center">
+                  <span
+                    className="absolute inset-0 animate-ping rounded-full bg-white/20"
+                    aria-hidden="true"
+                  />
+                  <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/15">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                      <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
+                    </svg>
+                  </span>
                 </span>
-                <span className="text-[10px] font-normal tracking-[0.12em] text-white/55 uppercase">
-                  Our heart &amp; vision
+                <span className="flex flex-col items-start leading-tight">
+                  <span className="text-[13px] font-semibold tracking-wide text-white">
+                    Watch Our Story
+                  </span>
+                  <span className="text-[10px] font-normal tracking-[0.12em] text-white/55 uppercase">
+                    Our heart &amp; vision
+                  </span>
                 </span>
               </span>
             </button>
@@ -309,7 +331,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       {/* ── Ministry Video Modal ─────────────────────────────────────────────── */}
       {modalOpen ? (
         <div
-          className="fixed inset-0 z-[500] flex items-end justify-center bg-black/90 pt-[72px] sm:items-center sm:p-8 sm:pt-8"
+          className="fixed inset-0 z-[500] flex items-center justify-center bg-black/90 p-4 sm:p-8"
           role="dialog"
           aria-modal="true"
           aria-label="Ministry story video"
@@ -322,7 +344,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             onClick={handleCloseModal}
             aria-label="Close video"
             tabIndex={0}
-            className="absolute right-4 top-[80px] z-[510] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:right-6 sm:top-6"
+            className="absolute right-4 top-4 z-[510] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:right-6 sm:top-6"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />

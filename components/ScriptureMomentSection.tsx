@@ -31,7 +31,7 @@ const springEase = (t: number): number => {
  * ScriptureMomentSection
  * - Full-screen pinned section
  * - Reveals a scripture word-by-word as you scroll
- * - Designed as a “pause moment” between content-heavy sections
+ * - Designed as a "pause moment" between content-heavy sections
  */
 export const ScriptureMomentSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -40,8 +40,20 @@ export const ScriptureMomentSection = () => {
   const arrowRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   /**
+   * Lerp (linear interpolation) smoothing state.
+   * `targetProgressRef` is updated instantly on every scroll event.
+   * `currentProgressRef` chases it each rAF tick at a fixed lerp factor,
+   * which eliminates the jerkiness caused by mobile momentum/inertia scroll flings
+   * where the browser fires scroll events in large jumps rather than smoothly.
+   * This technique is commonly called "scroll lerp" or "inertial scroll smoothing".
+   */
+  const targetProgressRef = useRef(0);
+  const currentProgressRef = useRef(0);
+  const rafIdRef = useRef<number | null>(null);
+
+  /**
    * Draft content — easy to swap later.
-   * Note: we keep punctuation attached to words so the reveal feels “spoken.”
+   * Note: we keep punctuation attached to words so the reveal feels "spoken."
    */
   const verseRef = "Psalm 127:4";
   const verseText =
@@ -101,7 +113,7 @@ export const ScriptureMomentSection = () => {
       if (n === 0) return;
 
       const p = clamp01(progress);
-      // Make the reveal smoother + slower: reserve more “breath” at the end.
+      // Make the reveal smoother + slower: reserve more "breath" at the end.
       const revealP = clamp01(p / 0.82);
 
       for (let i = 0; i < n; i += 1) {
@@ -110,7 +122,7 @@ export const ScriptureMomentSection = () => {
 
         /**
          * Each word gets a small time slice in the reveal.
-         * The +2 padding gives the first words a little space to “arrive.”
+         * The +2 padding gives the first words a little space to "arrive."
          */
         const start = (i + 0.12) / (n + 0.9);
         const end = (i + 1.55) / (n + 0.9);
@@ -159,8 +171,9 @@ export const ScriptureMomentSection = () => {
   );
 
   /**
-   * Scroll handler: turns the container’s scroll position into [0..1] progress.
-   * 200svh gives ~100svh scroll travel while the inner section stays pinned.
+   * Read the raw scroll position and write it to `targetProgressRef`.
+   * This is intentionally cheap — no DOM mutations happen here.
+   * The rAF loop handles the actual animation updates.
    */
   const handleScroll = useCallback(() => {
     const el = containerRef.current;
@@ -171,28 +184,58 @@ export const ScriptureMomentSection = () => {
     const scrollable = height - window.innerHeight;
 
     if (scrollable <= 0) {
-      animate(1);
+      targetProgressRef.current = 1;
       return;
     }
 
-    if (scrolled <= 0) {
-      animate(0);
-      return;
-    }
-
-    if (scrolled >= scrollable) {
-      animate(1);
-      return;
-    }
-
-    animate(scrolled / scrollable);
-  }, [animate]);
+    targetProgressRef.current = clamp01(scrolled / scrollable);
+  }, []);
 
   useEffect(() => {
-    // Initialize once refs are mounted.
-    requestAnimationFrame(() => animate(0));
+    /**
+     * Lerp factor: controls how fast `currentProgress` chases `targetProgress` per frame.
+     * - 1.0  = instant (no smoothing, original behaviour)
+     * - 0.10 = silky smooth on mobile — absorbs fast momentum/inertia flings
+     * - 0.18 = responsive on desktop trackpad/wheel
+     *
+     * Mobile browsers fire scroll events in large jumps during momentum flings,
+     * which causes the animation to skip. The lerp bridges those gaps so every
+     * intermediate frame is interpolated smoothly.
+     */
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    const LERP_FACTOR = isTouchDevice ? 0.10 : 0.18;
+
+    /** rAF loop: smoothly advances currentProgress toward targetProgress each frame. */
+    const tick = () => {
+      const target = targetProgressRef.current;
+      const current = currentProgressRef.current;
+      const delta = target - current;
+
+      // Only re-draw if the difference is meaningful (avoids wasted paint calls).
+      if (Math.abs(delta) > 0.0005) {
+        currentProgressRef.current = current + delta * LERP_FACTOR;
+        animate(currentProgressRef.current);
+      } else if (delta !== 0) {
+        // Snap to target once close enough to avoid floating-point drift.
+        currentProgressRef.current = target;
+        animate(target);
+      }
+
+      rafIdRef.current = requestAnimationFrame(tick);
+    };
+
+    // Kick off the loop once refs are mounted.
+    animate(0);
+    rafIdRef.current = requestAnimationFrame(tick);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
   }, [animate, handleScroll]);
 
   return (
@@ -204,7 +247,7 @@ export const ScriptureMomentSection = () => {
       style={{ height: "300svh" }}
     >
       {/* Pinned full-screen viewport */}
-      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-7 sm:px-12 lg:px-20">
+      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden px-5 sm:px-10 lg:px-20">
         {/* Congregation photo + cinematic scrim for legibility */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div
@@ -363,7 +406,7 @@ export const ScriptureMomentSection = () => {
         <div className="relative mx-auto w-full max-w-[1120px]">
           <div className="mx-auto max-w-[980px]">
             {/* Editorial typography: word-by-word reveal */}
-            <p className="text-balance font-extrabold leading-[0.98] tracking-[-0.06em] text-[clamp(32px,5.2vw,88px)] drop-shadow-[0_2px_26px_rgba(0,0,0,0.70)]">
+            <p className="text-balance font-extrabold leading-[1.0] tracking-[-0.04em] text-[clamp(28px,5.2vw,88px)] drop-shadow-[0_2px_26px_rgba(0,0,0,0.70)] sm:leading-[0.98] sm:tracking-[-0.06em]">
               {words.map((word, i) => (
                 <span
                   key={`${word}-${i}`}
@@ -389,7 +432,7 @@ export const ScriptureMomentSection = () => {
             </p>
 
             {/* Scripture reference — small, modern, right-aligned to text block */}
-            <p className="mt-6 text-right text-[11px] font-medium uppercase tracking-[0.22em] text-white/60 sm:text-[12px]">
+            <p className="mt-5 text-right text-[10px] font-medium uppercase tracking-[0.18em] text-white/60 sm:mt-6 sm:text-[12px] sm:tracking-[0.22em]">
               {verseRef}
             </p>
           </div>

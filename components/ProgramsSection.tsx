@@ -181,7 +181,7 @@ const ProgramCard = ({ program, cardIndex, animate }: ProgramCardProps) => {
   return (
     <div
       ref={cardRef}
-      className="group relative flex h-full min-h-[400px] w-full overflow-hidden rounded-[28px] bg-neutral-200 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:min-h-[460px] md:min-h-[500px]"
+      className="group relative flex h-full min-h-[360px] w-full overflow-hidden rounded-[24px] bg-neutral-200 shadow-[0_8px_40px_rgba(0,0,0,0.08)] sm:min-h-[440px] sm:rounded-[28px] md:min-h-[500px]"
     >
       <div
         ref={imageLayerRef}
@@ -221,16 +221,16 @@ const ProgramCard = ({ program, cardIndex, animate }: ProgramCardProps) => {
         />
       )}
 
-      <div className="relative z-10 mt-auto flex w-full flex-col gap-5 p-7 sm:p-8 md:p-9">
+      <div className="relative z-10 mt-auto flex w-full flex-col gap-4 p-5 sm:gap-5 sm:p-8 md:p-9">
         <div>
           <h3
-            className={`programs-animate-title programs-animate-title--${cardSlot} max-w-[14ch] text-[clamp(26px,3.8vw,40px)] font-bold leading-[1.06] tracking-[-0.02em] text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]`}
+            className={`programs-animate-title programs-animate-title--${cardSlot} max-w-[14ch] text-[clamp(22px,3.8vw,40px)] font-bold leading-[1.06] tracking-[-0.02em] text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.9)]`}
           >
             {program.title}
           </h3>
 
           <p
-            className={`programs-animate-desc programs-animate-desc--${cardSlot} mt-3 max-w-[36ch] text-[14px] leading-[1.65] text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:text-[15px]`}
+            className={`programs-animate-desc programs-animate-desc--${cardSlot} mt-2 max-w-[36ch] text-[13px] leading-[1.65] text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:mt-3 sm:text-[15px]`}
           >
             {program.description}
           </p>
@@ -292,14 +292,14 @@ export const ProgramsSection = () => {
     <section
       ref={sectionRef}
       id="gatherings"
-      className={`bg-white px-6 py-20 sm:px-10 sm:py-24 md:px-16 md:py-28 ${inView ? "programs-in-view" : ""}`}
+      className={`bg-white px-5 py-16 sm:px-10 sm:py-24 md:px-16 md:py-28 ${inView ? "programs-in-view" : ""}`}
       aria-labelledby="programs-heading"
     >
       <div className="mx-auto w-full max-w-[1200px]">
-        <header className="mb-10 flex flex-col gap-6 sm:mb-12 md:mb-14 md:flex-row md:items-start md:justify-between">
+        <header className="mb-8 flex flex-col gap-5 sm:mb-12 md:mb-14 md:flex-row md:items-start md:justify-between">
           <h2
             id="programs-heading"
-            className="max-w-[16ch] text-[clamp(32px,5vw,56px)] font-bold leading-[1.05] tracking-[-0.03em] text-neutral-900"
+            className="max-w-full text-[clamp(32px,7.5vw,56px)] font-bold leading-[1.05] tracking-[-0.03em] text-neutral-900 md:max-w-[16ch]"
           >
             <span className="programs-headline-line">
               <span className="programs-animate-headline-inner">Get ready to be</span>

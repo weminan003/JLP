@@ -174,14 +174,14 @@ export const StickyScrollSection = () => {
         id="about"
         ref={containerRef}
         style={{ height: `${scrollTrackSvh}svh` }}
-        className="relative bg-[#0a0a0a] px-8 sm:px-12 md:px-24"
+        className="relative bg-[#0a0a0a] px-4 sm:px-8 md:px-16 lg:px-24"
       >
         <div
-          className="sticky flex flex-col overflow-hidden rounded-2xl border border-zinc-800/40 h-[72vh] md:flex-row md:h-[60vh]"
-          style={{ top: "20vh" }}
+          className="sticky flex flex-col overflow-hidden rounded-2xl border border-zinc-800/40 h-[76vh] md:flex-row md:h-[62vh]"
+          style={{ top: "18vh" }}
         >
           {/* ─── Left: image wipe ─── */}
-          <div className="relative h-[38%] w-full shrink-0 overflow-hidden bg-zinc-900 md:h-auto md:w-[48%]">
+          <div className="relative h-[40%] w-full shrink-0 overflow-hidden bg-zinc-900 md:h-auto md:w-[48%]">
             {SLIDES.map((slide, i) => (
               <div
                 key={slide.id}
@@ -232,14 +232,14 @@ export const StickyScrollSection = () => {
                       : "translate3d(0, 0, 0) rotateY(0deg) scale(1)",
                   }}
                 >
-                  <div className="flex h-full flex-col justify-center px-10 py-14 md:px-14 md:py-16">
+                  <div className="flex h-full flex-col justify-center px-6 py-8 sm:px-10 sm:py-12 md:px-14 md:py-16">
                     <h2
-                      className={`max-w-[520px] text-balance text-[clamp(36px,4.5vw,56px)] font-bold leading-[1.05] tracking-[-0.02em] ${theme.title}`}
+                      className={`max-w-[520px] text-balance text-[clamp(26px,4vw,56px)] font-bold leading-[1.05] tracking-[-0.02em] ${theme.title}`}
                     >
                       {slide.title}
                     </h2>
                     <p
-                      className={`mt-8 max-w-[480px] text-pretty text-[clamp(16px,1.6vw,20px)] leading-[1.65] md:mt-10 ${theme.body}`}
+                      className={`mt-4 max-w-[480px] text-pretty text-[clamp(14px,1.6vw,20px)] leading-[1.65] sm:mt-6 md:mt-10 ${theme.body}`}
                     >
                       {slide.description}
                     </p>

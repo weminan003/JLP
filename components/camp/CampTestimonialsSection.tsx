@@ -51,7 +51,7 @@ const TESTIMONIALS: CampTestimonial[] = [
 const clamp01 = (value: number): number => Math.max(0, Math.min(1, value));
 
 const TestimonyGlassCard = ({ item }: { item: CampTestimonial }) => (
-  <article className="camp-card-hover relative h-[360px] w-[min(85vw,440px)] shrink-0 overflow-hidden rounded-3xl bg-neutral-900 sm:h-[380px]">
+  <article className="camp-card-hover relative h-[340px] w-[min(88vw,440px)] shrink-0 overflow-hidden rounded-2xl bg-neutral-900 sm:h-[370px] sm:rounded-3xl">
     <Image
       src={item.imageSrc}
       alt=""
@@ -60,17 +60,17 @@ const TestimonyGlassCard = ({ item }: { item: CampTestimonial }) => (
       className="object-cover object-center opacity-75 transition-transform duration-700 hover:scale-105"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
-    <div className="absolute inset-x-6 bottom-6 rounded-2xl border border-white/10 bg-white/10 p-5 backdrop-blur-md md:inset-x-8 md:bottom-8 md:p-6">
-      <p className="text-pretty text-[16px] leading-relaxed text-white md:text-[17px]">
+    <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/10 bg-white/10 p-4 backdrop-blur-md sm:inset-x-6 sm:bottom-6 sm:rounded-2xl sm:p-5 md:inset-x-8 md:bottom-8 md:p-6">
+      <p className="text-pretty text-[14px] leading-relaxed text-white sm:text-[15px] md:text-[17px]">
         &ldquo;{item.quote}&rdquo;
       </p>
-      <div className="mt-5 flex items-center gap-3">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#6d28d9] text-sm font-bold text-white">
+      <div className="mt-4 flex items-center gap-2.5 sm:mt-5 sm:gap-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#6d28d9] text-sm font-bold text-white sm:h-10 sm:w-10">
           {item.name.charAt(0)}
         </span>
         <div>
-          <p className="text-[14px] font-semibold text-white">{item.name}</p>
-          <p className="text-[13px] text-white/60">{item.role}</p>
+          <p className="text-[13px] font-semibold text-white sm:text-[14px]">{item.name}</p>
+          <p className="text-[12px] text-white/60 sm:text-[13px]">{item.role}</p>
         </div>
       </div>
     </div>
@@ -176,8 +176,8 @@ export const CampTestimonialsSection = () => {
           className={`mb-6 flex shrink-0 items-end justify-between camp-reveal md:mb-8 ${titleInView ? "is-visible" : ""}`}
         >
           <div>
-            <p className="text-[13px] text-neutral-500">+ Testimonies</p>
-            <h2 className="mt-2 text-[clamp(2.5rem,7vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white">
+            <p className="text-[12px] text-neutral-500 sm:text-[13px]">+ Testimonies</p>
+            <h2 className="mt-2 text-[clamp(2rem,7vw,5rem)] font-bold leading-[0.95] tracking-[-0.04em] text-white">
               Changed Lives
             </h2>
           </div>

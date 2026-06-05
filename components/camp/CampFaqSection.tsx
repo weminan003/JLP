@@ -72,17 +72,17 @@ export const CampFaqSection = () => {
     >
       <div
         ref={revealRef}
-        className={`mx-auto grid max-w-6xl gap-12 ${CAMP_SECTION_PY} lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20`}
+        className={`mx-auto grid max-w-6xl gap-10 ${CAMP_SECTION_PY} sm:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-20`}
       >
         <div className={`camp-reveal ${inView ? "is-visible" : ""}`}>
-          <p className="mb-4 text-[13px] font-medium text-neutral-500">Questions</p>
-          <h2 className="text-balance text-[clamp(2rem,4.5vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white">
+          <p className="mb-3 text-[12px] font-medium text-neutral-500 sm:mb-4 sm:text-[13px]">Questions</p>
+          <h2 className="text-balance text-[clamp(1.75rem,4.5vw,3.25rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white">
             All the important details before camp{" "}
             <span className="text-neutral-500">Supernatural Teens Camp</span>
           </h2>
         </div>
 
-        <ul className={`flex flex-col gap-3 camp-reveal ${inView ? "is-visible" : ""}`} style={{ transitionDelay: "0.12s" }}>
+        <ul className={`flex flex-col gap-2.5 camp-reveal sm:gap-3 ${inView ? "is-visible" : ""}`} style={{ transitionDelay: "0.12s" }}>
           {FAQ_ITEMS.map((item) => {
             const isOpen = openId === item.id;
             return (
@@ -94,14 +94,14 @@ export const CampFaqSection = () => {
                   id={`faq-trigger-${item.id}`}
                   onClick={() => handleToggle(item.id)}
                   onKeyDown={(event) => handleKeyDown(event, item.id)}
-                  className="flex w-full items-center justify-between gap-4 rounded-2xl bg-neutral-900/80 px-5 py-4 text-left transition-[background-color,transform] duration-300 hover:bg-neutral-900 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 active:scale-[0.99]"
+                  className="flex w-full items-center justify-between gap-3 rounded-xl bg-neutral-900/80 px-4 py-3.5 text-left transition-[background-color,transform] duration-300 hover:bg-neutral-900 hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 active:scale-[0.99] sm:rounded-2xl sm:px-5 sm:py-4"
                 >
-                  <span className="text-[15px] font-medium leading-snug text-white md:text-[16px]">
+                  <span className="text-[14px] font-medium leading-snug text-white sm:text-[15px] md:text-[16px]">
                     {item.question}
                   </span>
                   <span
                     aria-hidden="true"
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xl text-white/70"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xl text-white/70 sm:h-8 sm:w-8"
                   >
                     {isOpen ? "−" : "+"}
                   </span>
@@ -111,9 +111,9 @@ export const CampFaqSection = () => {
                   role="region"
                   aria-labelledby={`faq-trigger-${item.id}`}
                   hidden={!isOpen}
-                  className="px-5 pb-1 pt-3"
+                  className="px-4 pb-1 pt-3 sm:px-5"
                 >
-                  <p className="text-[15px] leading-relaxed text-neutral-400">{item.answer}</p>
+                  <p className="text-[14px] leading-relaxed text-neutral-400 sm:text-[15px]">{item.answer}</p>
                 </div>
               </li>
             );

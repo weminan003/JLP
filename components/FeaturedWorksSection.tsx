@@ -94,14 +94,14 @@ const easeInOut3 = (t: number): number =>
 const TITLE_PRIMARY_STYLE = {
   fontFamily: "var(--font-outfit), ui-sans-serif, system-ui, sans-serif",
   fontWeight: 900,
-  lineHeight: 0.88,
-  letterSpacing: "-0.07em",
+  lineHeight: 0.9,
+  letterSpacing: "-0.06em",
   color: "#FFFFFF",
   display: "block",
   width: "100%",
   whiteSpace: "nowrap",
   textAlign: "center",
-  fontSize: "clamp(3rem, 10.35vw, 24rem)",
+  fontSize: "clamp(2.5rem, 10.35vw, 24rem)",
 } as const;
 
 const TITLE_SECONDARY_STYLE = {

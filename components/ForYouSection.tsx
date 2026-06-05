@@ -120,7 +120,7 @@ export const ForYouSection = () => {
       }
     `}</style>
   <section
-    className="relative overflow-hidden py-24 md:py-32"
+    className="relative overflow-hidden py-20 md:py-28 lg:py-36"
     aria-label="JLP is for you if you are"
   >
     {/* ── Low-opacity video + light scrim for legibility ── */}
@@ -145,9 +145,9 @@ export const ForYouSection = () => {
     <div className="relative z-10">
 
       {/* Heading */}
-      <div className="mb-10 px-6 text-center">
+      <div className="mb-10 px-6 text-center sm:mb-12">
         <h2
-          className="text-[clamp(22px,3.8vw,52px)] font-black uppercase leading-[1.06] tracking-[-0.01em] text-white"
+          className="text-[clamp(24px,5vw,52px)] font-black uppercase leading-[1.06] tracking-[-0.01em] text-white"
           tabIndex={0}
         >
           JLP IS FOR YOU<br />IF YOU ARE…

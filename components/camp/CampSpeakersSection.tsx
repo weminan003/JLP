@@ -19,49 +19,49 @@ const SPEAKERS: CampSpeaker[] = [
     name: "Pastor William Emina",
     organization: "JLP MINISTRIES",
     role: "Host",
-    imageSrc: "/images/programs-camp-prayer-worship.png",
+    imageSrc: "/images/speaker-william-emina.png",
   },
   {
     id: "lawrence-oyor",
     name: "Apostle Lawrence Oyor",
     organization: "GUEST SPEAKER",
     role: "Speaker",
-    imageSrc: "/images/programs-annual-camp-gathering.png",
+    imageSrc: "/images/speaker-lawrence-oyor.png",
   },
   {
     id: "levi-afolayan",
     name: "Pastor Levi O. Afolayan",
     organization: "GUEST SPEAKER",
     role: "Speaker",
-    imageSrc: "/images/supernatural-encounters.png",
+    imageSrc: "/images/speaker-levi-afolayan.png",
   },
   {
     id: "benjamin-ekesi",
     name: "Pastor Benjamin Ekesi",
     organization: "GUEST SPEAKER",
     role: "Speaker",
-    imageSrc: "/images/love-power-revival.png",
+    imageSrc: "/images/speaker-benjamin-ekesi.png",
   },
   {
     id: "esther-samson",
     name: "Esther Samson",
     organization: "CAMP MINSTREL",
     role: "Minstrel",
-    imageSrc: "/images/programs-supernatural-camp.png",
+    imageSrc: "/images/speaker-esther-samson.png",
   },
   {
     id: "godsgift-alika",
     name: "God'sgift Alika",
     organization: "CAMP MINSTREL",
     role: "Minstrel",
-    imageSrc: "/images/programs-monthly-recharge-worship.png",
+    imageSrc: "/images/speaker-godsgift-alika.png",
   },
   {
     id: "paul",
     name: "Paul",
     organization: "CAMP MINSTREL",
     role: "Minstrel",
-    imageSrc: "/images/response-section.png",
+    imageSrc: "/images/speaker-paul.png",
   },
 ];
 
@@ -135,26 +135,80 @@ export const CampSpeakersSection = () => {
       aria-label="Camp speakers"
       className={`bg-white ${CAMP_SECTION_PX} ${CAMP_SECTION_PY}`}
     >
+      {/* ── Mobile layout: plain static flow, no sticky tricks ── */}
+      <div className="md:hidden">
+        <div
+          ref={sectionRevealRef}
+          className={`mb-8 flex flex-col camp-reveal ${sectionInView ? "is-visible" : ""}`}
+        >
+          <p className="text-[12px] font-bold uppercase tracking-[0.24em] text-neutral-400">
+            Speakers
+          </p>
+          <h2 className="mt-3 text-balance text-[clamp(2.25rem,8vw,3.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-neutral-950">
+            Camp ministers
+          </h2>
+          <p className="mt-4 text-pretty text-[0.95rem] leading-relaxed text-neutral-500">
+            Anointed ministers and minstrels coming together to lead the next
+            generation into worship, the Word, and supernatural encounter.
+          </p>
+          <a
+            href="https://bit.ly/TSCAMP2026"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-950 transition-[gap,opacity] duration-300 hover:gap-3 hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400"
+          >
+            <span aria-hidden="true">→</span>
+            Register for camp
+          </a>
+        </div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8">
+          {SPEAKERS.map((speaker, index) => (
+            <article
+              key={speaker.id}
+              className={`camp-reveal ${sectionInView ? "is-visible" : ""}`}
+              style={{ transitionDelay: `${0.08 + index * 0.06}s` }}
+            >
+              <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-neutral-200">
+                <Image
+                  src={speaker.imageSrc}
+                  alt={speaker.name}
+                  fill
+                  sizes="45vw"
+                  className="object-cover object-top transition-transform duration-500"
+                />
+              </div>
+              <h3 className="mt-3 text-[0.95rem] font-bold leading-tight text-neutral-950">
+                {speaker.name}
+              </h3>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-800">
+                {speaker.organization}
+              </p>
+              <p className="mt-0.5 text-[13px] text-neutral-500">{speaker.role}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Desktop layout: sticky scroll-driven vertical track ── */}
       <div
         ref={containerRef}
         style={{ height: containerHeightPx }}
-        className="relative"
+        className="relative hidden md:block"
       >
         <div
-          className="sticky flex h-[78vh] flex-col gap-8 overflow-hidden md:flex-row md:items-stretch md:gap-14"
+          className="sticky flex flex-row items-stretch gap-14 overflow-hidden md:h-[78vh]"
           style={{ top: STICKY_TOP }}
         >
           <div
-            ref={sectionRevealRef}
-            className={`flex w-full shrink-0 flex-col justify-center md:w-[min(380px,36%)] camp-reveal ${sectionInView ? "is-visible" : ""}`}
+            className={`flex w-[min(380px,36%)] shrink-0 flex-col justify-center camp-reveal ${sectionInView ? "is-visible" : ""}`}
           >
             <p className="text-[12px] font-bold uppercase tracking-[0.24em] text-neutral-400">
               Speakers
             </p>
-            <h2 className="mt-3 text-balance text-[clamp(2.75rem,5.5vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-neutral-950">
+            <h2 className="mt-3 text-balance text-[clamp(2.25rem,5.5vw,4.5rem)] font-bold leading-[1.02] tracking-[-0.03em] text-neutral-950">
               Camp ministers
             </h2>
-            <p className="mt-5 max-w-md text-pretty text-[clamp(1.05rem,1.8vw,1.25rem)] leading-relaxed text-neutral-500">
+            <p className="mt-4 max-w-md text-pretty text-[clamp(0.95rem,1.8vw,1.25rem)] leading-relaxed text-neutral-500 sm:mt-5">
               Anointed ministers and minstrels coming together to lead the next
               generation into worship, the Word, and supernatural encounter.
             </p>
@@ -172,7 +226,7 @@ export const CampSpeakersSection = () => {
           <div ref={viewportRef} className="relative min-h-0 flex-1 overflow-hidden">
             <div
               ref={trackRef}
-              className="grid w-full grid-cols-2 gap-x-4 gap-y-8 will-change-transform sm:gap-x-5 sm:gap-y-10 md:gap-x-6 md:gap-y-12"
+              className="grid w-full grid-cols-2 gap-x-6 gap-y-12 will-change-transform"
               style={{ transform: "translate3d(0, 0, 0)" }}
             >
               {SPEAKERS.map((speaker, index) => (
@@ -186,17 +240,17 @@ export const CampSpeakersSection = () => {
                       src={speaker.imageSrc}
                       alt={speaker.name}
                       fill
-                      sizes="(min-width: 768px) 240px, 45vw"
-                      className="object-cover object-center grayscale transition-[transform,filter] duration-500 hover:grayscale-0"
+                      sizes="240px"
+                      className="object-cover object-top transition-[transform,filter] duration-500 grayscale hover:grayscale-0"
                     />
                   </div>
-                  <h3 className="mt-4 text-[clamp(1.1rem,2vw,1.5rem)] font-bold leading-tight text-neutral-950">
+                  <h3 className="mt-3 text-[clamp(0.95rem,2vw,1.5rem)] font-bold leading-tight text-neutral-950">
                     {speaker.name}
                   </h3>
-                  <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-800 sm:text-[11px]">
+                  <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-800">
                     {speaker.organization}
                   </p>
-                  <p className="mt-1 text-[14px] text-neutral-500 sm:text-[15px]">{speaker.role}</p>
+                  <p className="mt-0.5 text-[15px] text-neutral-500">{speaker.role}</p>
                 </article>
               ))}
             </div>
