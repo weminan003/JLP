@@ -149,31 +149,35 @@ const FullscreenModal = ({ card, onClose }: FullscreenModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/92 p-4 sm:p-8"
+      className="fixed inset-0 z-[500] flex items-end justify-center bg-black/92 pt-[72px] sm:items-center sm:p-8 sm:pt-8"
       role="dialog"
       aria-modal="true"
       aria-label={`${card.label} testimony`}
       onClick={handleBackdropClick}
     >
+      {/* Close button — always top-right, clear of header */}
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-4 top-4 z-[210] flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:right-8 sm:top-8"
+        className="absolute right-4 top-[80px] z-[510] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 sm:right-6 sm:top-6"
         aria-label="Close testimony"
       >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
           <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>
 
       <div
-        className={`flex w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-black shadow-2xl ${
-          card.orientation === "portrait" ? "max-w-[min(100%,420px)]" : "max-w-5xl"
+        className={`flex w-full flex-col overflow-hidden rounded-t-2xl border border-white/10 bg-[#0d0d0d] shadow-2xl sm:rounded-2xl ${
+          card.orientation === "portrait"
+            ? "max-h-[90dvh] max-w-[min(100%,380px)]"
+            : "max-h-[90dvh] max-w-5xl"
         }`}
         onClick={handleContentClick}
       >
+        {/* Video */}
         <div
-          className={`testimony-plyr relative w-full bg-black ${
+          className={`relative w-full flex-shrink-0 bg-black ${
             card.orientation === "portrait" ? "aspect-[9/16]" : "aspect-video"
           }`}
         >
@@ -184,13 +188,17 @@ const FullscreenModal = ({ card, onClose }: FullscreenModalProps) => {
             orientation={card.orientation}
           />
         </div>
-        <div className="border-t border-white/10 px-6 py-5 sm:px-8 sm:py-6">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">
-            {card.index} · {card.category}
-          </p>
-          <h3 className="mt-1.5 text-[clamp(22px,3.5vw,40px)] font-bold leading-tight tracking-tight text-white">
-            {card.label}
-          </h3>
+
+        {/* Info bar */}
+        <div className="flex items-center gap-4 border-t border-white/[0.07] px-5 py-4 sm:px-6 sm:py-5">
+          <div className="flex flex-col gap-0.5">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">
+              {card.index} · {card.category}
+            </p>
+            <h3 className="text-[clamp(16px,2.5vw,26px)] font-bold leading-tight tracking-tight text-white">
+              {card.label}
+            </h3>
+          </div>
         </div>
       </div>
     </div>

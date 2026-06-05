@@ -95,9 +95,9 @@ const PROGRAMS: readonly JlpProgram[] = [
     description:
       "Five days away from distractions, deep in the presence of God. Immersive encounters, fire, and transformation.",
     imageSrc: "/images/programs-camp-prayer-worship.png",
-    imageAlt: "Teenager in worship with hands on heart at Supernatural Teens Recharge Camp",
+    imageAlt: "Large crowd of young people gathered at Supernatural Teens Recharge Camp",
     href: "/programs/supernatural-teens-camp",
-    imageClassName: "object-cover object-[38%_center]",
+    imageClassName: "object-cover object-center",
   },
 ] as const;
 

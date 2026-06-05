@@ -39,6 +39,8 @@ yarn-error.log*
 # large video files (host on CDN/Supabase Storage instead)
 public/testimonies/*.mp4
 public/videos/jlp-ministry-video.mp4
+# no-captions version is committed directly (73MB) — remove this line if too large for Vercel
+# public/videos/jlp-ministry-video-no-captions.mp4
 
 # typescript
 *.tsbuildinfo

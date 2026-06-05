@@ -309,7 +309,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       {/* ── Ministry Video Modal ─────────────────────────────────────────────── */}
       {modalOpen ? (
         <div
-          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/90 p-4 sm:p-8"
+          className="fixed inset-0 z-[500] flex items-end justify-center bg-black/90 pt-[72px] sm:items-center sm:p-8 sm:pt-8"
           role="dialog"
           aria-modal="true"
           aria-label="Ministry story video"
@@ -322,7 +322,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             onClick={handleCloseModal}
             aria-label="Close video"
             tabIndex={0}
-            className="absolute right-4 top-4 z-[310] flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:right-8 sm:top-8"
+            className="absolute right-4 top-[80px] z-[510] flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:right-6 sm:top-6"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M18 6L6 18M6 6l12 12" />
