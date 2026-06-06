@@ -230,7 +230,7 @@ const ProgramCard = ({ program, cardIndex, animate }: ProgramCardProps) => {
           </h3>
 
           <p
-            className={`programs-animate-desc programs-animate-desc--${cardSlot} mt-2 max-w-[36ch] text-[13px] leading-[1.65] text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:mt-3 sm:text-[15px]`}
+            className={`programs-animate-desc programs-animate-desc--${cardSlot} mt-2 hidden max-w-[36ch] text-[13px] leading-[1.65] text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)] sm:mt-3 sm:block sm:text-[15px]`}
           >
             {program.description}
           </p>
