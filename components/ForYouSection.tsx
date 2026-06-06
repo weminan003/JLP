@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const BACKGROUND_VIDEO_SRC = "https://tmczhiaehonyxwhungsj.supabase.co/storage/v1/object/public/videos/videos/for-you-section-bg.mp4";
+const BACKGROUND_VIDEO_SRC = "https://tmczhiaehonyxwhungsj.supabase.co/storage/v1/object/public/videos/for-you-section-bg.mp4";
 const BACKGROUND_POSTER_SRC = "/hero/hero-bg.png";
 
 /** ─── Types ─────────────────────────────────────────────────────────────── */

@@ -19,9 +19,9 @@ type AltrumHeroProps = {
 
 const SUPABASE = "https://tmczhiaehonyxwhungsj.supabase.co/storage/v1/object/public/videos";
 /** Background loop — trimmed no-captions version, loops silently */
-const HERO_VIDEO_SRC = `${SUPABASE}/videos/jlp-ministry-video-no-captions.mp4`;
+const HERO_VIDEO_SRC = `${SUPABASE}/jlp-ministry-video-no-captions.mp4`;
 /** Full ministry video — original with captions, plays in the modal */
-const MODAL_VIDEO_SRC = `${SUPABASE}/videos/jlp-ministry-video.mp4`;
+const MODAL_VIDEO_SRC = `${SUPABASE}/jlp-ministry-video.mp4`;
 const HERO_POSTER_SRC = "/hero/jlp-hero.png";
 /** Background preview starts here on first load, then loops naturally from 0:00 */
 const HERO_VIDEO_START_OFFSET = 24;
