@@ -203,7 +203,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             <source src={HERO_VIDEO_SRC} type="video/mp4" />
           </video>
           {/* Hero content */}
-          <div className="relative z-10 flex h-full w-full flex-col justify-end px-6 pb-10 pt-28 sm:px-10 sm:pb-16 lg:px-14">
+          <div className="relative z-10 flex h-full w-full flex-col justify-end px-6 pb-28 pt-28 sm:px-10 sm:pb-16 lg:px-14">
 
             {/* JLP dominant — tagline small and minimal below */}
             <div className="flex max-w-[min(540px,82vw)] flex-col gap-4">
@@ -236,40 +236,30 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
               </p>
             </div>
 
-            {/* Mobile only: icon-only glass circle — centred in hero */}
-            <button
-              type="button"
-              onClick={handleOpenModal}
-              aria-label="Watch our ministry story"
-              tabIndex={0}
-              className="pointer-events-auto absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:hidden"
-              style={{
-                opacity: bottomOpacity > 0.05 ? 1 : 0,
-                transition: "opacity 0.4s ease",
-              }}
-            >
-              <span className="relative flex h-16 w-16 items-center justify-center">
-                <span
-                  className="absolute inset-0 animate-ping rounded-full bg-white/15"
-                  aria-hidden="true"
-                />
-                <span
-                  className="relative flex h-16 w-16 items-center justify-center rounded-full border border-white/25 text-white shadow-2xl transition-all duration-300 hover:border-white/40 hover:bg-white/20"
-                  style={{
-                    background: "rgba(255,255,255,0.10)",
-                    backdropFilter: "blur(20px) saturate(1.5)",
-                    WebkitBackdropFilter: "blur(20px) saturate(1.5)",
-                  }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true">
-                    <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
-                  </svg>
-                </span>
-              </span>
-            </button>
           </div>
 
-          {/* Desktop only: full pill — bottom-right of hero */}
+          {/* Mobile: minimal pill — top-right, just below the header */}
+          <button
+            type="button"
+            onClick={handleOpenModal}
+            aria-label="Watch video"
+            tabIndex={0}
+            className="pointer-events-auto absolute right-5 top-1/2 z-20 flex -translate-y-1/2 cursor-pointer items-center gap-2 rounded-full border border-white/20 px-3.5 py-2.5 text-white shadow-lg transition-all duration-300 hover:border-white/35 hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 sm:hidden"
+            style={{
+              background: "rgba(255,255,255,0.08)",
+              backdropFilter: "blur(20px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+              opacity: bottomOpacity > 0.05 ? 1 : 0,
+              transition: "opacity 0.4s ease",
+            }}
+          >
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+              <path d="M8 5.14v13.72L19.5 12 8 5.14z" />
+            </svg>
+            <span className="text-[12px] font-medium tracking-wide text-white">Watch Video</span>
+          </button>
+
+          {/* Desktop: full pill — vertically centred, right edge */}
           <button
             type="button"
             onClick={handleOpenModal}
