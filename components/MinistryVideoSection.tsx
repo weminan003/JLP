@@ -21,6 +21,21 @@ export const MinistryVideoSection = () => {
     ).matches;
     if (prefersReducedMotion) return;
 
+    /** Skip video on slow connections (2G / slow-3G) */
+    const nav = navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    };
+    const conn = nav.connection;
+    const isSlowConnection =
+      conn?.saveData === true ||
+      conn?.effectiveType === "slow-2g" ||
+      conn?.effectiveType === "2g";
+
+    if (isSlowConnection) {
+      video.removeAttribute("src");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];

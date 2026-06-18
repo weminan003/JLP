@@ -178,7 +178,7 @@ export const StickyScrollSection = () => {
       >
         <div
           className="sticky flex flex-col overflow-hidden rounded-2xl border border-zinc-800/40 h-[76vh] md:flex-row md:h-[62vh]"
-          style={{ top: "18vh" }}
+          style={{ top: "18vh", overflowX: "hidden" }}
         >
           {/* ─── Left: image wipe ─── */}
           <div className="relative h-[40%] w-full shrink-0 overflow-hidden bg-zinc-900 md:h-auto md:w-[48%]">
@@ -213,7 +213,7 @@ export const StickyScrollSection = () => {
           {/* ─── Right: full panels peel aside to reveal the next ─── */}
           <div
             className="relative flex flex-1 flex-col overflow-hidden bg-[#120a0a] md:flex-none md:w-[52%]"
-            style={{ perspective: "1400px", perspectiveOrigin: "0% 50%" }}
+            style={{ perspective: "1400px", perspectiveOrigin: "0% 50%", overflowX: "hidden" }}
           >
             {SLIDES.map((slide, i) => {
               const theme = PANEL_THEME[slide.theme];

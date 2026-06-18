@@ -98,6 +98,21 @@ export const ForYouSection = () => {
       return;
     }
 
+    /** Skip video on slow connections (2G / slow-3G) — poster stays visible */
+    const nav = navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    };
+    const conn = nav.connection;
+    const isSlowConnection =
+      conn?.saveData === true ||
+      conn?.effectiveType === "slow-2g" ||
+      conn?.effectiveType === "2g";
+
+    if (isSlowConnection) {
+      video.removeAttribute("src");
+      return;
+    }
+
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
@@ -132,7 +147,7 @@ export const ForYouSection = () => {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         poster={BACKGROUND_POSTER_SRC}
         aria-hidden="true"
       >

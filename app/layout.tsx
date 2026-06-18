@@ -14,6 +14,12 @@ const robotoCondensed = Roboto_Condensed({
   weight: ["900"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0a0a",
+};
+
 export const metadata: Metadata = {
   title: {
     default: "Jesus Love and Power Ministries",
@@ -73,7 +79,7 @@ export default function RootLayout({
       lang="en"
       className={`${outfit.variable} ${robotoCondensed.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
     </html>
   );
 }

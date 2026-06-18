@@ -79,6 +79,21 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
       return;
     }
 
+    /** Skip video on slow connections (2G / slow-3G) — poster stays visible */
+    const nav = navigator as Navigator & {
+      connection?: { effectiveType?: string; saveData?: boolean };
+    };
+    const conn = nav.connection;
+    const isSlowConnection =
+      conn?.saveData === true ||
+      conn?.effectiveType === "slow-2g" ||
+      conn?.effectiveType === "2g";
+
+    if (isSlowConnection) {
+      video.removeAttribute("src");
+      return;
+    }
+
     /** Seek to 0:24 on first play then let the browser loop natively */
     const handleCanPlay = () => {
       if (video.currentTime < HERO_VIDEO_START_OFFSET) {
@@ -196,7 +211,7 @@ export const AltrumHero = ({ backgroundAlt = "Hero background" }: AltrumHeroProp
             muted
             loop
             playsInline
-            preload="auto"
+            preload="metadata"
             poster={HERO_POSTER_SRC}
             aria-label={backgroundAlt}
           >
